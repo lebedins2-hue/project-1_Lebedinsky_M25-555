@@ -48,7 +48,9 @@ def move_player(game_state, direction):
 
   
 def take_item(game_state, item_name):
-    ''' Функция позволяющая брать предмет в комнате и класть его в инвентарь'''
+
+    ''' Функция позволяющая брать предмет в комнате и 
+        класть его в инвентарь'''
 
     room = game_state.get('current_room')
     item = constants.ROOMS[room]['items']
@@ -73,6 +75,7 @@ def show_inventory(game_state):
 def use_item(game_state, item_name):
     
     '''Функция позволяет поднять предмет и использовать его'''
+    
     match item_name:
         case 'torch':
             print('Вы зажгли факел. В помещении стало светлее!')

@@ -23,6 +23,9 @@ def describe_current_room(game_state):
         print('Кажется здесь есть загадка (используйте команду solve).')
 
 def solve_puzzle(game_state):
+
+    '''Функция '''
+
     room = game_state.get('current_room')
     puzzle = constants.ROOMS[room]['puzzle']
     if puzzle:

@@ -1,7 +1,7 @@
 [project]
 name = "project_1-lebedinsky-m25-555"
 version = "0.1.0"
-description = ""
+description = "game quest"
 authors = [
     {name = "[project_1_Lebedinsky_M25-555]",email = "[lebedins2.0@yandex.ru]"}
 ]

@@ -7,6 +7,9 @@ import utils
 
 
 def main():
+
+    '''Основная с основным циклом игры'''
+
     print('Добро пожаловать в Лабиринт сокровищ!')
     utils.describe_current_room(game_state)
     while True:
@@ -18,6 +21,10 @@ def main():
             break
 
 def process_command(game_state, command):
+
+    '''Функция анализирует команды пользователя и в зависимотси от введенной
+    команды вызывает нужную функцию'''
+
     com = command.split()
     match com[0].lower():
         case 'help':
