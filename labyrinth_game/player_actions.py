@@ -1,5 +1,7 @@
+
 import constants
-from utils import describe_current_room
+import utils
+
 
 def get_input(prompt="> "):
     
@@ -31,16 +33,22 @@ def move_player(game_state, direction):
    if direction not in exits:
        print("Нельзя пойти в этом направлении")
    else:
+       if exits.get(direction) == 'treasure_room':
+           if 'treasure_key' in game_state['player_inventory']:
+               print('Вы используете ключ и входите в комнату сокровищ.')
+           else:            
+                return print('Дверь заперта. Нужен ключ, чтобы пройти дальше')
+             
        game_state['current_room'] = exits.get(direction)  
        game_state['steps_taken'] += 1
        room = game_state.get('current_room')
-       describe_current_room(game_state)
+       utils.describe_current_room(game_state)
+       utils.random_event(game_state)
 
 
   
 def take_item(game_state, item_name):
     ''' Функция позволяющая брать предмет в комнате и класть его в инвентарь'''
-
 
     room = game_state.get('current_room')
     item = constants.ROOMS[room]['items']
@@ -51,12 +59,11 @@ def take_item(game_state, item_name):
     else:
         game_state['player_inventory'].append(item_name)
         constants.ROOMS[room]['items'].remove(item_name)
-        #print(constants.ROOMS[room]['items']) - Проверка пропал ли поднятый предмет в комнате
         print('Вы подняли: ', item_name)
 
 def show_inventory(game_state):
 
-   '''Функция показывает наличие предметов инвентаре'''
+   '''Функция показывает наличие предметов в инвентаре'''
 
    if game_state['player_inventory']:
       print('Предметы в инвентаре:  ', ',  '.join(game_state['player_inventory']))

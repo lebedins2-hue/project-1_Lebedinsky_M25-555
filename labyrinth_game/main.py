@@ -1,48 +1,57 @@
 #!/usr/bin/env python
-import constants 
+
+
+import constants
+import player_actions
 import utils
-from player_actions import *
-import sys
 
 
 def main():
     print('Добро пожаловать в Лабиринт сокровищ!')
     utils.describe_current_room(game_state)
     while True:
-        user_input = get_input('Введите команду: ')
+        user_input = player_actions.get_input('Введите команду: ')
         process_command(game_state, user_input)
         if user_input == 'exit':
             break
-        if game_state['game_over'] == True:
+        if game_state['game_over']:
             break
 
 def process_command(game_state, command):
     com = command.split()
-    match com[0]:
+    match com[0].lower():
         case 'help':
-            utils.show_help()
+            utils.show_help(constants.COMMANDS)
         case 'look':
             utils.describe_current_room(game_state)
         case 'use':
             try:
                 if com[1] is not None:
-                    use_item(game_state, com[1])
+                    player_actions.use_item(game_state, com[1])
             except IndexError:
                 print('Введите название предмета, который хотите использовать.')    
+        case 'north':
+            player_actions.move_player(game_state, com[0])
+        case 'west':
+            player_actions.move_player(game_state, com[0])
+        case 'east':
+            player_actions.move_player(game_state, com[0])
+        case 'south':
+            player_actions.move_player(game_state, com[0])
         case 'go':
             try:
                 if com[1] is not None:
-                    move_player(game_state, com[1])
+                    player_actions.move_player(game_state, com[1])
             except IndexError:
                 print('Введите направление.')    
         case 'take':
            try:
                 if com[1] is not None:
-                    take_item(game_state, com[1])
+                    player_actions.take_item(game_state, com[1])
            except IndexError:
                 print('Введите название предмета, который хотите поднять.')
         case 'inventory':
-            show_inventory(game_state)
+            player_actions.show_inventory(game_state)
         case 'solve':
             if game_state['current_room'] == 'treasure_room':
                 utils.attempt_open_treasure(game_state)
